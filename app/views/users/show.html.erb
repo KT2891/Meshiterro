@@ -2,11 +2,12 @@
 <div>
   <h3><%= @user.name %></h3>
   <%= image_tag @user.get_profile_image(100,100) %>
+  <% if @user.id == current_user.id %>
   <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% end %>
 </div>
 
-<!-- ユーザーの投稿一覧-->
-
+<!-- ユーザーの投稿一覧 -->
 <% @post_images.each do |post_image| %>
   <div>
     <%= link_to post_image_path(post_image.id) do %>
@@ -14,8 +15,7 @@
     <% end %>
     <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
     <p>ショップ名：<%= post_image.shop_name %></p>
-    <p>説明<%= post_image.caption %></p>
+    <p>説明：<%= post_image.caption %></p>
     <p>ユーザーネーム：<%= post_image.user.name %></p>
-    <p><%= link_to "#{post_image.post_comments.count} コメント" post_image_path(post_image.id)%></p>
-  </div>
+    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>  </div>
 <% end %>
